@@ -210,6 +210,13 @@ enum I18nKey {
 	musicErrorSourceUnavailable = "musicErrorSourceUnavailable",
 	musicErrorAutoplayBlocked = "musicErrorAutoplayBlocked",
 	musicErrorInvalidTrack = "musicErrorInvalidTrack",
+	steamStatusTitle = "steamStatusTitle",
+	steamStatusInGame = "steamStatusInGame",
+	steamStatusOnline = "steamStatusOnline",
+	steamStatusOffline = "steamStatusOffline",
+	steamStatusError = "steamStatusError",
+	steamStatusLoading = "steamStatusLoading",
+	steamStatusUnavailable = "steamStatusUnavailable",
 
 	themeColor = "themeColor",
 	colorStyle = "colorStyle",

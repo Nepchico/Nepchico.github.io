@@ -57,7 +57,8 @@ shirone-content/
 ├── content/                    # 核心内容区（映射至 src/content/）
 │   ├── posts/                  # 博客文章与配图
 │   ├── moments/                # 说说动态
-│   └── spec/                   # 特殊页面
+│   ├── spec/                   # 特殊页面
+│   └── games/                  # Steam AppID → 游戏名/自定义文本映射
 ├── data/                       # 结构化数据（映射至 src/data/）
 │   ├── projects.ts  skills.ts  timeline.ts  devices.ts
 │   ├── friends.ts   compass.ts music.ts     anime.ts

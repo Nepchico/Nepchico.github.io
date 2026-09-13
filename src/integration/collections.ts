@@ -14,7 +14,7 @@ import { z } from "astro/zod";
 
 export interface DefineCollectionsOptions {
 	/**
-	 * Directory holding `posts/`, `moments/` and `spec/`, relative to the
+	 * Directory holding `posts/`, `moments/`, `spec/` and `games/`, relative to the
 	 * project root.
 	 * @default "shirones/content"
 	 */
@@ -24,6 +24,7 @@ export interface DefineCollectionsOptions {
 		posts?: string;
 		moments?: string;
 		spec?: string;
+		games?: string;
 	};
 }
 
@@ -92,6 +93,17 @@ export const momentSchema = z.object({
 /** Schema for free-form spec pages (currently just `about.md`). */
 export const specSchema = z.object({});
 
+/** Schema for Steam AppID display overrides. */
+export const gameSchema = z.object({
+	enabled: z.boolean().optional().default(true),
+	appId: z
+		.union([z.string(), z.number()])
+		.transform((value) => String(value).trim())
+		.refine((value) => /^\d+$/.test(value), "appId must contain digits only"),
+	name: z.string().min(1),
+	text: z.string().optional().default(""),
+});
+
 /**
  * Build the `collections` export for `src/content.config.ts`.
  */
@@ -107,6 +119,9 @@ export function defineCollections(options: DefineCollectionsOptions = {}) {
 	const specBase = options.paths?.spec
 		? normaliseBase(options.paths.spec)
 		: `${root}/spec`;
+	const gamesBase = options.paths?.games
+		? normaliseBase(options.paths.games)
+		: `${root}/games`;
 
 	return {
 		posts: defineCollection({
@@ -120,6 +135,10 @@ export function defineCollections(options: DefineCollectionsOptions = {}) {
 		moments: defineCollection({
 			loader: glob({ base: momentsBase, pattern: "**/*.md" }),
 			schema: momentSchema,
+		}),
+		games: defineCollection({
+			loader: glob({ base: gamesBase, pattern: "**/*.md" }),
+			schema: gameSchema,
 		}),
 	} as const;
 }

@@ -131,6 +131,16 @@ export interface MusicWidget {
 	pages?: SidebarPage[];
 }
 
+/** Steam 在线状态（内容来自 Cloudflare Worker 与 content/games 映射） */
+export interface SteamStatusWidget {
+	type: "steam-status";
+	enable: boolean;
+	slot: SidebarWidgetSlot;
+	column?: SidebarColumn;
+	/** 限定显示的页面，省略或空数组表示所有页面 */
+	pages?: SidebarPage[];
+}
+
 export type SidebarWidget =
 	| ProfileWidget
 	| CategoriesWidget
@@ -139,7 +149,8 @@ export type SidebarWidget =
 	| StatsWidget
 	| CalendarWidget
 	| TocWidget
-	| MusicWidget;
+	| MusicWidget
+	| SteamStatusWidget;
 
 /**
  * 侧栏整体配置。components 渲染顺序 = 数组顺序，top 恒排在 sticky 之前。

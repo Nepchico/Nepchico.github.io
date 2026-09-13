@@ -30,6 +30,8 @@ export type {
 
 const MUSIC_VIRTUAL_ID = "virtual:shirone-music-sidebar";
 const RESOLVED_MUSIC_VIRTUAL_ID = `\0${MUSIC_VIRTUAL_ID}`;
+const STEAM_VIRTUAL_ID = "virtual:shirone-steam-status";
+const RESOLVED_STEAM_VIRTUAL_ID = `\0${STEAM_VIRTUAL_ID}`;
 
 /**
  * Vite aliases mapping the theme's TypeScript path aliases onto the installed
@@ -121,6 +123,43 @@ function createMusicSidebarPlugin(
 	};
 }
 
+/** Keep the Steam runtime and styles out of sites that do not enable it. */
+function createSteamStatusPlugin(
+	paths: ResolvedShironesPaths,
+	enabled: boolean,
+) {
+	const statusPath = join(
+		paths.packageSrc,
+		"components/organisms/steam/SteamStatus.astro",
+	);
+
+	return {
+		name: "shirones:optional-steam-status",
+		enforce: "pre" as const,
+		resolveId(source: string) {
+			return source === STEAM_VIRTUAL_ID ? RESOLVED_STEAM_VIRTUAL_ID : null;
+		},
+		load(id: string) {
+			if (id !== RESOLVED_STEAM_VIRTUAL_ID) return null;
+			return enabled
+				? `export { default } from ${JSON.stringify(statusPath)};`
+				: "export default null;";
+		},
+		generateBundle(_options: unknown, bundle: Record<string, unknown>) {
+			if (enabled) return;
+			for (const fileName of Object.keys(bundle)) {
+				if (
+					fileName.includes("SteamStatusClient") ||
+					fileName.startsWith("_astro/steam-status.") ||
+					fileName.includes("/steam-status.")
+				) {
+					delete bundle[fileName];
+				}
+			}
+		},
+	};
+}
+
 /**
  * The Shirone theme, packaged as an Astro integration.
  *
@@ -202,6 +241,12 @@ export function shirones(options: ShironesOptions = {}): AstroIntegration {
 					c: unknown,
 				) => unknown;
 
+				const steamModule = await loadConfigModule(paths, "steamStatusConfig", registryRef);
+				const steamStatusConfig = steamModule.steamStatusConfig;
+				const resolveSteamStatusOptions = steamModule.resolveSteamStatusOptions as (
+					c: unknown,
+				) => unknown;
+
 				const umamiModule = await loadConfigModule(paths, "umamiConfig", registryRef);
 				const umamiConfig = umamiModule.umamiConfig as { shareUrl: string };
 				const resolveUmamiOptions = umamiModule.resolveUmamiOptions as (
@@ -216,6 +261,14 @@ export function shirones(options: ShironesOptions = {}): AstroIntegration {
 				);
 				const musicEnabled =
 					musicWidgetEnabled && resolveMusicOptions(musicConfig) !== null;
+				const steamWidgetEnabled = Boolean(
+					sidebarConfig?.enable &&
+						sidebarConfig.components?.some(
+							(widget) => widget.type === "steam-status" && widget.enable,
+						),
+				);
+				const steamEnabled =
+					steamWidgetEnabled && resolveSteamStatusOptions(steamStatusConfig) !== null;
 				const umamiEnabled = resolveUmamiOptions(umamiConfig) !== null;
 
 				// ── 2. Watch config files so the dev server restarts on edits ───
@@ -277,6 +330,7 @@ export function shirones(options: ShironesOptions = {}): AstroIntegration {
 							shironesFallbackResolver(paths),
 							shironesSsrNodeShims(),
 							createMusicSidebarPlugin(paths, musicEnabled),
+							createSteamStatusPlugin(paths, steamEnabled),
 							(await import("@tailwindcss/vite")).default(),
 						],
 						optimizeDeps: {

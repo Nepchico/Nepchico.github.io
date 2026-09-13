@@ -221,6 +221,13 @@ export const vi: Translation = {
 	[Key.musicErrorAutoplayBlocked]:
 		"Tự động phát đã bị chặn. Nhấn nút phát để bắt đầu.",
 	[Key.musicErrorInvalidTrack]: "Bài hát này không hợp lệ.",
+	[Key.steamStatusTitle]: "Trạng thái Steam",
+	[Key.steamStatusInGame]: "Đang chơi",
+	[Key.steamStatusOnline]: "Trực tuyến",
+	[Key.steamStatusOffline]: "Ngoại tuyến",
+	[Key.steamStatusError]: "Lỗi truy vấn",
+	[Key.steamStatusLoading]: "Đang tải trạng thái Steam",
+	[Key.steamStatusUnavailable]: "Không có trạng thái Steam",
 
 	[Key.themeColor]: "Theme Color",
 	[Key.colorStyle]: "Phong cách màu",

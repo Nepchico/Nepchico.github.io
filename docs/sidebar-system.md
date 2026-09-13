@@ -109,6 +109,17 @@ widget 的专属配置（如分类的折叠阈值 `collapseAfter`）只存在于
 主内容并同步页面过滤，不得在 `content:replace` / `page:view` 时重建音频实例或把播放器重置为
 `musicConfig.defaultVolume` / `musicConfig.defaultMode`；直接加载页面时则正常初始化一次。
 
+### 2.6 Steam 状态 widget 的启用与加载
+
+Steam 状态由 `steamStatusConfig.enable`、合法的 Worker `endpoint` 与
+`sidebarConfig.components` 中启用的 `steam-status` 条目三重控制。任一条件不满足时，
+虚拟模块返回 `null`，不输出组件 DOM、内联样式、客户端 chunk 或 API 请求。
+
+该 widget 默认只配置在 `pages: ["home"]`。进入主页且组件进入视口后才请求一次；
+之后以 `pollIntervalMs` 单次定时刷新。切换到其它页面、标签页进入后台或组件销毁时，
+必须取消在途请求并停止计时器。AppID 展示覆盖由 `content/games/*.md` 构建期读取，
+缺少映射时游戏名回退至 Worker/Steam 返回值，自定义文本为空。
+
 ## 3. 响应式行为
 
 断点沿用站点既有 Tailwind 约定：`lg` = 1024px，`xl` = 1280px。
@@ -140,6 +151,7 @@ export const sidebarConfig: SidebarConfig = {
 		{ type: "profile", enable: true, slot: "top" },
 		{ type: "announcement", enable: false, slot: "top" },
 		{ type: "music", enable: false, slot: "top" },
+		{ type: "steam-status", enable: false, slot: "top", pages: ["home"] },
 		{ type: "categories", enable: true, slot: "sticky" },
 		{ type: "tags", enable: true, slot: "sticky" },
 	],
@@ -184,6 +196,7 @@ export const sidebarConfig: SidebarConfig = {
 | `stats` | `SiteStats` | `getSiteStats` | `WidgetLayout` | — |
 | `calendar` | `Calendar` | `getCalendarData` | `WidgetLayout` | `startOfWeek?`（默认 `"mon"`） |
 | `music` | `MusicSidebar`（organisms） | `musicConfig` | `WidgetLayout` | —（内容与初始状态来自全局配置） |
+| `steam-status` | `SteamStatus`（organisms） | Cloudflare Worker + `content/games` | 专用 M3 Card | —（网络参数来自 `steamStatusConfig`） |
 | `toc` | `SidebarTOC` | 当前文章 headings | `WidgetLayout` | —（通常限定 `pages: ["post"]`） |
 
 逐个文档见 `sidebar-widgets.md`。

@@ -68,6 +68,10 @@ export {
 	siteConfig,
 } from "./siteConfig";
 export { skillsConfig } from "./skillsConfig";
+export {
+	resolveSteamStatusOptions,
+	steamStatusConfig,
+} from "./steamStatusConfig";
 export { timelineConfig } from "./timelineConfig";
 export {
 	type ResolvedUmamiOptions,

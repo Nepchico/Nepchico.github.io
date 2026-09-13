@@ -36,7 +36,7 @@ src/integration/
 ├── load-config.ts  Node-side loader for user TypeScript config
 ├── routes.ts       src/pages scan → injectRoute patterns
 ├── fonts.ts        font declarations + plugin-mode subsetting
-├── collections.ts  defineCollections() for src/content.config.ts
+├── collections.ts  defineCollections() for posts, moments, spec, and games
 ├── cli.mjs         `shirones init`
 ├── paths.ts        directory resolution
 └── types.ts        public option types

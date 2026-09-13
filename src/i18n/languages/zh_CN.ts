@@ -211,6 +211,13 @@ export const zh_CN: Translation = {
 	[Key.musicErrorSourceUnavailable]: "该音源不可用",
 	[Key.musicErrorAutoplayBlocked]: "自动播放受限，请点击播放按钮开始",
 	[Key.musicErrorInvalidTrack]: "歌曲信息无效",
+	[Key.steamStatusTitle]: "Steam 在线状态",
+	[Key.steamStatusInGame]: "游戏中",
+	[Key.steamStatusOnline]: "在线",
+	[Key.steamStatusOffline]: "离线",
+	[Key.steamStatusError]: "获取错误",
+	[Key.steamStatusLoading]: "正在获取 Steam 状态",
+	[Key.steamStatusUnavailable]: "Steam 状态不可用",
 
 	[Key.themeColor]: "Theme Color",
 	[Key.colorStyle]: "配色风格",

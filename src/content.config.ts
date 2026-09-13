@@ -69,8 +69,22 @@ const momentsCollection = defineCollection({
 	}),
 });
 
+const gamesCollection = defineCollection({
+	loader: glob({ base: "./src/content/games", pattern: "**/*.md" }),
+	schema: z.object({
+		enabled: z.boolean().optional().default(true),
+		appId: z
+			.union([z.string(), z.number()])
+			.transform((value) => String(value).trim())
+			.refine((value) => /^\d+$/.test(value), "appId must contain digits only"),
+		name: z.string().min(1),
+		text: z.string().optional().default(""),
+	}),
+});
+
 export const collections = {
 	posts: postsCollection,
 	spec: specCollection,
 	moments: momentsCollection,
+	games: gamesCollection,
 } as const;

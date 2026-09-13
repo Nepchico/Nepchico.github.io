@@ -221,6 +221,13 @@ export const tr: Translation = {
 	[Key.musicErrorAutoplayBlocked]:
 		"Otomatik oynatma engellendi. Başlatmak için oynat düğmesine basın.",
 	[Key.musicErrorInvalidTrack]: "Bu parça geçersiz.",
+	[Key.steamStatusTitle]: "Steam durumu",
+	[Key.steamStatusInGame]: "Oyunda",
+	[Key.steamStatusOnline]: "Çevrimiçi",
+	[Key.steamStatusOffline]: "Çevrimdışı",
+	[Key.steamStatusError]: "Alma hatası",
+	[Key.steamStatusLoading]: "Steam durumu yükleniyor",
+	[Key.steamStatusUnavailable]: "Steam durumu kullanılamıyor",
 
 	[Key.themeColor]: "Theme Color",
 	[Key.colorStyle]: "Renk Stili",

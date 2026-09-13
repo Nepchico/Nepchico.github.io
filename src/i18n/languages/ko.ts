@@ -218,6 +218,13 @@ export const ko: Translation = {
 	[Key.musicErrorAutoplayBlocked]:
 		"자동 재생이 차단되었습니다. 재생 버튼을 눌러 시작하세요.",
 	[Key.musicErrorInvalidTrack]: "곡 정보가 올바르지 않습니다.",
+	[Key.steamStatusTitle]: "Steam 온라인 상태",
+	[Key.steamStatusInGame]: "게임 중",
+	[Key.steamStatusOnline]: "온라인",
+	[Key.steamStatusOffline]: "오프라인",
+	[Key.steamStatusError]: "가져오기 오류",
+	[Key.steamStatusLoading]: "Steam 상태 불러오는 중",
+	[Key.steamStatusUnavailable]: "Steam 상태를 사용할 수 없음",
 
 	[Key.themeColor]: "Theme Color",
 	[Key.colorStyle]: "색상 스타일",

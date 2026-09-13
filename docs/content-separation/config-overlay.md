@@ -44,6 +44,7 @@ themeColor:
 | `sidebar.yaml` | `sidebarConfig` 侧边栏组件与布局 | `timeline.yaml` | `timelineConfig` 时间轴 |
 | `nav-bar.yaml` | `navBarConfig` 顶部导航栏 | `devices.yaml` | `devicesConfig` 我的设备 |
 | `post-list.yaml` | `postListConfig` 文章列表样式 | `music.yaml` | `musicConfig` 音乐播放器 |
+| `steam-status.yaml` | `steamStatusConfig` Steam Worker 请求参数 |  |  |
 | `article.yaml` | `articleConfig` 文章正文与阅读设置 | `anime.yaml` | `animeConfig` 番剧追番 |
 | `comment.yaml` | `commentConfig` 评论系统 | `font.yaml` | `fontConfig` 字体与字号 |
 | `announcement.yaml` | `announcementConfig` 全站公告 | `license.yaml` | `licenseConfig` 版权协议 |

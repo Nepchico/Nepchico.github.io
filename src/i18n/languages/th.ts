@@ -210,6 +210,13 @@ export const th: Translation = {
 	[Key.musicErrorSourceUnavailable]: "ไม่สามารถเล่นเพลงนี้ได้",
 	[Key.musicErrorAutoplayBlocked]: "ระบบบล็อกการเล่นอัตโนมัติ กดปุ่มเล่นเพื่อเริ่ม",
 	[Key.musicErrorInvalidTrack]: "ข้อมูลเพลงนี้ไม่ถูกต้อง",
+	[Key.steamStatusTitle]: "สถานะ Steam",
+	[Key.steamStatusInGame]: "กำลังเล่นเกม",
+	[Key.steamStatusOnline]: "ออนไลน์",
+	[Key.steamStatusOffline]: "ออฟไลน์",
+	[Key.steamStatusError]: "ดึงข้อมูลผิดพลาด",
+	[Key.steamStatusLoading]: "กำลังโหลดสถานะ Steam",
+	[Key.steamStatusUnavailable]: "ไม่พบสถานะ Steam",
 
 	[Key.themeColor]: "Theme Color",
 	[Key.colorStyle]: "สไตล์สี",

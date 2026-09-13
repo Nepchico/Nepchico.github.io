@@ -135,6 +135,12 @@ export const CONFIG_DOMAINS = Object.freeze([
 		module: "@/types/musicConfig",
 	},
 	{
+		key: "steamStatus",
+		file: "steam-status",
+		type: "SteamStatusConfig",
+		module: "@/types/steamStatusConfig",
+	},
+	{
 		key: "anime",
 		file: "anime",
 		type: "AnimeConfig",

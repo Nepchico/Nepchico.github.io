@@ -219,6 +219,13 @@ export const en: Translation = {
 	[Key.musicErrorSourceUnavailable]: "This track is unavailable.",
 	[Key.musicErrorAutoplayBlocked]: "Autoplay was blocked. Press play to start.",
 	[Key.musicErrorInvalidTrack]: "This track is invalid.",
+	[Key.steamStatusTitle]: "Steam status",
+	[Key.steamStatusInGame]: "In game",
+	[Key.steamStatusOnline]: "Online",
+	[Key.steamStatusOffline]: "Offline",
+	[Key.steamStatusError]: "Fetch error",
+	[Key.steamStatusLoading]: "Loading Steam status",
+	[Key.steamStatusUnavailable]: "Steam status unavailable",
 
 	[Key.themeColor]: "Theme Color",
 	[Key.colorStyle]: "Color Style",

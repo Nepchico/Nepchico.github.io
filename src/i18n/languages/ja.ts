@@ -219,6 +219,13 @@ export const ja: Translation = {
 	[Key.musicErrorAutoplayBlocked]:
 		"自動再生がブロックされました。再生ボタンを押してください。",
 	[Key.musicErrorInvalidTrack]: "曲の情報が無効です。",
+	[Key.steamStatusTitle]: "Steam オンライン状態",
+	[Key.steamStatusInGame]: "ゲーム中",
+	[Key.steamStatusOnline]: "オンライン",
+	[Key.steamStatusOffline]: "オフライン",
+	[Key.steamStatusError]: "取得エラー",
+	[Key.steamStatusLoading]: "Steam の状態を取得中",
+	[Key.steamStatusUnavailable]: "Steam の状態を取得できません",
 
 	[Key.themeColor]: "Theme Color",
 	[Key.colorStyle]: "配色スタイル",

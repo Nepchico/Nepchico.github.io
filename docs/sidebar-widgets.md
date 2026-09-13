@@ -21,6 +21,7 @@ SideBar 通过 `src/config/sidebarConfig.ts` 中的 `components` 数组动态编
 | `stats` | `SiteStats` | top | 站点统计规格表 |
 | `calendar` | `Calendar` | sticky | 月度文章历（SSR 直出 + 水合岛） |
 | `music` | `MusicSidebar` | top | 持久音乐播放器（全局配置 + widget 双开关，默认关闭） |
+| `steam-status` | `SteamStatus` | top | 主页 Steam 在线/游戏状态（Worker + AppID 内容映射，默认关闭） |
 | `toc` | `SidebarTOC` | sticky | 当前文章目录（通常只在文章页显示） |
 
 ### 1.1 通用字段
@@ -119,7 +120,30 @@ interface SidebarWidgetBase {
 
 ---
 
-## 11. 新增 widget 的设计约束
+## 11. SteamStatus — Steam 在线状态
+
+- **数据源**：浏览器仅请求 `steamStatusConfig.endpoint` 指向的 Cloudflare Worker，Steam Web API Key 必须保存在 Worker Secret；
+- **状态**：游戏中、在线、离线、获取错误四种胶囊状态，颜色与圆点同步；
+- **内容映射**：`content/games/*.md` 以 `appId`、`name`、`text` 保存显示覆盖；没有 AppID 条目时使用 API 游戏名且不显示自定义文本；
+- **生命周期**：默认仅主页展示，进入视口才水合；离开主页或页面进入后台立即停止刷新并取消请求；
+- **安全边界**：8 秒超时上限、512 KiB 响应上限、JSON Content-Type 校验、字段白名单、请求去重，临时失败最多重试一次；
+- **长标题**：只在实际溢出时使用 ambient duration token 左右往返，reduced-motion 下回退为省略号。
+
+```ts
+{ type: "steam-status", enable: false, slot: "top", pages: ["home"] }
+```
+
+```markdown
+---
+appId: "730"
+name: Counter-Strike 2
+text: 今天也在快乐白给
+---
+```
+
+---
+
+## 12. 新增 widget 的设计约束
 
 1. **外观语言**：优先复用既有原子——`MetaIcon`（单图标徽标）、`Chip` / `Button` / `Card`、`WidgetLayout`（标题外壳）、`AccentBar`；不要自创新的徽标/容器风格；
 2. **外壳取舍**：短消息类（如公告）不用 `WidgetLayout`；有明确"分组 + 列表"语义的（分类/标签/统计），以及音乐等需要统一侧栏标题的有机体使用；

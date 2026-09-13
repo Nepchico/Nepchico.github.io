@@ -21,6 +21,10 @@ import { i18n } from "@i18n/translation";
 import { isWidgetVisibleOnPage, pagesToAttribute } from "@utils/sidebar-page";
 import { musicConfig, resolveMusicOptions } from "@/config/musicConfig";
 import { sidebarConfig } from "@/config/sidebarConfig";
+import {
+	resolveSteamStatusOptions,
+	steamStatusConfig,
+} from "@/config/steamStatusConfig";
 import type {
 	SidebarColumn,
 	SidebarPage,
@@ -64,6 +68,16 @@ const MusicSidebar =
 	musicOptions && hasEnabledMusicWidget
 		? (await import("virtual:shirone-music-sidebar")).default
 		: null;
+const steamOptions = resolveSteamStatusOptions(steamStatusConfig);
+const hasEnabledSteamWidget =
+	sidebarConfig.enable &&
+	sidebarConfig.components.some(
+		(widget) => widget.type === "steam-status" && widget.enable,
+	);
+const SteamStatus =
+	steamOptions && hasEnabledSteamWidget
+		? (await import("virtual:shirone-steam-status")).default
+		: null;
 
 // widget 类型 → 组件（键必须覆盖 SidebarWidget 的全部 type）
 const componentMap = {
@@ -75,6 +89,7 @@ const componentMap = {
 	calendar: Calendar,
 	toc: SidebarTOC,
 	music: MusicSidebar,
+	"steam-status": SteamStatus,
 } satisfies Record<SidebarWidget["type"], unknown>;
 
 type WidgetRenderer = (props: Record<string, unknown>) => unknown;
@@ -86,7 +101,8 @@ const widgets = sidebarConfig.enable
 			(widget) =>
 				widget.enable &&
 				(widget.column ?? "primary") === column &&
-				(widget.type !== "music" || MusicSidebar !== null),
+				(widget.type !== "music" || MusicSidebar !== null) &&
+				(widget.type !== "steam-status" || SteamStatus !== null),
 		)
 	: [];
 const topWidgets = widgets.filter((widget) => widget.slot === "top");

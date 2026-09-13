@@ -15,6 +15,10 @@ import { expressiveCodeConfig } from "./src/config/expressiveCodeConfig.ts";
 import { resolvedFontOptions } from "./src/config/fontConfig.ts";
 import { musicConfig, resolveMusicOptions } from "./src/config/musicConfig.ts";
 import { sidebarConfig } from "./src/config/sidebarConfig.ts";
+import {
+	resolveSteamStatusOptions,
+	steamStatusConfig,
+} from "./src/config/steamStatusConfig.ts";
 import { siteConfig } from "./src/config/siteConfig.ts";
 import { resolveUmamiOptions, umamiConfig } from "./src/config/umamiConfig.ts";
 import { pluginCustomCopyButton } from "./src/plugins/expressive-code/custom-copy-button.js";
@@ -30,6 +34,13 @@ const musicWidgetEnabled =
 	);
 const musicFeatureEnabled =
 	resolveMusicOptions(musicConfig) !== null && musicWidgetEnabled;
+const steamWidgetEnabled =
+	sidebarConfig.enable &&
+	sidebarConfig.components.some(
+		(widget) => widget.type === "steam-status" && widget.enable,
+	);
+const steamFeatureEnabled =
+	resolveSteamStatusOptions(steamStatusConfig) !== null && steamWidgetEnabled;
 
 const resolvedUmamiOptions = resolveUmamiOptions(umamiConfig);
 const umamiIntegration = resolvedUmamiOptions
@@ -41,6 +52,8 @@ const umamiIntegration = resolvedUmamiOptions
 	: null;
 const musicSidebarModuleId = "virtual:shirone-music-sidebar";
 const resolvedMusicSidebarModuleId = `\0${musicSidebarModuleId}`;
+const steamStatusModuleId = "virtual:shirone-steam-status";
+const resolvedSteamStatusModuleId = `\0${steamStatusModuleId}`;
 
 const optionalMusicSidebarPlugin = {
 	name: "shirone-optional-music-sidebar",
@@ -66,6 +79,32 @@ const optionalMusicSidebarPlugin = {
 				) {
 					delete bundle[fileName];
 				}
+			}
+		}
+	},
+};
+
+const optionalSteamStatusPlugin = {
+	name: "shirone-optional-steam-status",
+	enforce: "pre",
+	resolveId(source) {
+		return source === steamStatusModuleId ? resolvedSteamStatusModuleId : null;
+	},
+	load(id) {
+		if (id !== resolvedSteamStatusModuleId) return null;
+		return steamFeatureEnabled
+			? 'export { default } from "/src/components/organisms/steam/SteamStatus.astro";'
+			: "export default null;";
+	},
+	generateBundle(_options, bundle) {
+		if (steamFeatureEnabled) return;
+		for (const fileName of Object.keys(bundle)) {
+			if (
+				fileName.includes("SteamStatusClient") ||
+				fileName.startsWith("_astro/steam-status.") ||
+				fileName.includes("/steam-status.")
+			) {
+				delete bundle[fileName];
 			}
 		}
 	},
@@ -276,7 +315,7 @@ export default defineConfig({
 				},
 			],
 		},
-		plugins: [optionalMusicSidebarPlugin, tailwindcss()],
+		plugins: [optionalMusicSidebarPlugin, optionalSteamStatusPlugin, tailwindcss()],
 		optimizeDeps: {
 			include: [
 				"mermaid",

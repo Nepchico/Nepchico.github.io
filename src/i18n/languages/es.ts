@@ -221,6 +221,13 @@ export const es: Translation = {
 	[Key.musicErrorAutoplayBlocked]:
 		"La reproducción automática está bloqueada. Pulsa reproducir para comenzar.",
 	[Key.musicErrorInvalidTrack]: "Esta pista no es válida.",
+	[Key.steamStatusTitle]: "Estado de Steam",
+	[Key.steamStatusInGame]: "Jugando",
+	[Key.steamStatusOnline]: "En línea",
+	[Key.steamStatusOffline]: "Desconectado",
+	[Key.steamStatusError]: "Error de consulta",
+	[Key.steamStatusLoading]: "Cargando estado de Steam",
+	[Key.steamStatusUnavailable]: "Estado de Steam no disponible",
 
 	[Key.themeColor]: "Theme Color",
 	[Key.colorStyle]: "Estilo de color",

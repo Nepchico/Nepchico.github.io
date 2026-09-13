@@ -222,6 +222,13 @@ export const id: Translation = {
 	[Key.musicErrorAutoplayBlocked]:
 		"Pemutaran otomatis diblokir. Tekan putar untuk memulai.",
 	[Key.musicErrorInvalidTrack]: "Lagu ini tidak valid.",
+	[Key.steamStatusTitle]: "Status Steam",
+	[Key.steamStatusInGame]: "Sedang bermain",
+	[Key.steamStatusOnline]: "Online",
+	[Key.steamStatusOffline]: "Offline",
+	[Key.steamStatusError]: "Gagal mengambil",
+	[Key.steamStatusLoading]: "Memuat status Steam",
+	[Key.steamStatusUnavailable]: "Status Steam tidak tersedia",
 
 	[Key.themeColor]: "Theme Color",
 	[Key.colorStyle]: "Gaya Warna",
