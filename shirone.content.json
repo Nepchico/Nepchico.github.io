@@ -1,7 +1,20 @@
 {
-  "schemaVersion": 1,
-  "source": {
-    "type": "path",
-    "path": "../shirone-content"
-  }
+	"schemaVersion": 1,
+
+	"source": {
+		"type": "git",
+		"url": "https://github.com/Nepchico/Nepchico-Blog-Content.git",
+		"ref": "main"
+	},
+
+	"mounts": {
+		"content": "src/content",
+		"data": "src/data",
+		"assets": "src/assets",
+		"public": "public"
+	},
+
+	"keep": [],
+
+	"prune": true
 }
