@@ -46,10 +46,12 @@ concurrency:
 
 permissions:
   contents: read
+  pages: write
+  id-token: write
 
 env:
   # TODO: 替换为你的内容仓。
-  CONTENT_REPOSITORY: OWNER/shirone-content
+  CONTENT_REPOSITORY: Nepchico/Nepchico-Blog-Content
   CONTENT_WORKING_COPY: .content-src
 
 jobs:
@@ -155,10 +157,14 @@ jobs:
       # ───────────────────────────────────────────────────────────────────────
       # 部署：按你的平台替换这一步，下面给了四种常见写法。
       # ───────────────────────────────────────────────────────────────────────
-      - name: Deploy
-        run: |
-          echo "把这一步替换成你的平台部署命令，构建产物在 dist/。" >&2
-          exit 1
+      # 变体 B：GitHub Pages（需要把顶层 permissions 改为
+      # `contents: read` + `pages: write` + `id-token: write`，并配置 environment）
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@<pinned-sha>
+        with:
+          path: dist
+      - name: Deploy to Pages
+        uses: actions/deploy-pages@<pinned-sha>
 
       # 变体 A：Vercel（关闭 Vercel 的 Git 自动构建，改由 Actions 交付产物）
       # - name: Deploy to Vercel
