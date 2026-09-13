@@ -59,10 +59,9 @@ jobs:
     name: Build and deploy
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    env:
-      CI: true
-      # 让 content:sync 走「本地目录」模式，内容由下面的 checkout 步骤取得。
-      CONTENT_DIR: .content-src
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Resolve content ref
@@ -160,11 +159,12 @@ jobs:
       # 变体 B：GitHub Pages（需要把顶层 permissions 改为
       # `contents: read` + `pages: write` + `id-token: write`，并配置 environment）
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@<pinned-sha>
+        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
         with:
           path: dist
       - name: Deploy to Pages
-        uses: actions/deploy-pages@<pinned-sha>
+        id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
 
       # 变体 A：Vercel（关闭 Vercel 的 Git 自动构建，改由 Actions 交付产物）
       # - name: Deploy to Vercel
