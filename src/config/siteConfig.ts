@@ -44,9 +44,6 @@ export const siteConfig: SiteConfig = withUserConfig("site", {
 	wallpaperMode: {
 		defaultMode: "none",
 	},
-	layoutMode: {
-		defaultMode: "grid",
-	},
 	// 页面背景纹理系统配置（5 大精美预设 + 零开销 HCT 动态取色）
 	texture: {
 		enable: true, // 是否启用背景纹理系统
