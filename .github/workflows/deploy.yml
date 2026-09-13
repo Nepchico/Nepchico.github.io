@@ -59,9 +59,14 @@ jobs:
     name: Build and deploy
     runs-on: ubuntu-latest
     timeout-minutes: 20
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+      
+    env:
+      CI: true
+      CONTENT_DIR: .content-src
 
     steps:
       - name: Resolve content ref
