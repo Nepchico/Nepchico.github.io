@@ -2,7 +2,7 @@
 
 这是一个借助基于[Astro](https://astro.build)构建的静态博客模板[Shirone](https://github.com/lyraVoid/shirone)搭建的个人站点
 
-网站地址：[Nepchico.top](nepchico.top)
+网站地址：[Nepchico.top](https://nepchico.top)
 
 仓库根据开发规范直接合并创建，根据后续情况可能会移除内容
 

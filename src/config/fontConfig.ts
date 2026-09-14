@@ -43,7 +43,7 @@ export const fontConfig: FontConfig = withUserConfig("font", {
 	 * - `"custom"`: 启用自定义字体（加载下方 fontFamilies 中配置的字体）
 	 * - `"system"`: 纯系统字体模式（不打包任何自定义字体文件，完全依赖访客设备）
 	 */
-	mode: "system",
+	mode: "custom",
 
 	/**
 	 * 字体清单列表（按需配置 body、cjk、mono 角色）
