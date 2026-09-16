@@ -207,7 +207,7 @@ export default defineConfig({
 			preload: true,
 			accessibility: true,
 			updateHead: {
-				awaitAssets: false,
+				awaitAssets: true,
 				// Keep base styles across Swup visits, but let syntax-scoped styles
 				// disappear when the destination page no longer declares them.
 				persistTags:

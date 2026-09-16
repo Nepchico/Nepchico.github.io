@@ -522,7 +522,7 @@ async function createBundledIntegrations(
 			preload: true,
 			accessibility: true,
 			updateHead: {
-				awaitAssets: false,
+				awaitAssets: true,
 				persistTags: "link[rel=stylesheet], style",
 			},
 			updateBodyClass: false,
